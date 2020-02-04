@@ -2,8 +2,10 @@ package com.example.intentchonhinhanh26112019;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     String[] arrayNamesAnimal;
     int mIndexHinhGoc = -1;
     int mValueHinhGoc = -1;
+    int mRequestCodeImage = 123;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +26,17 @@ public class MainActivity extends AppCompatActivity {
         init();
         mapview();
         mapImageRandom();
+        setListener();
+    }
+
+    private void setListener() {
+        mImgHinhChon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,AnimalsActivity.class);
+                startActivityForResult(intent,mRequestCodeImage);
+            }
+        });
     }
 
     private void init() {

@@ -32,21 +32,23 @@ public class AnimalsActivity extends AppCompatActivity {
         int socot = 3;
         int sodong = 6;
         int index = 0;
+        int valueHinhChon = 0;
         for (int i = 0 ; i < sodong ; i++){
             TableRow tableRow = new TableRow(AnimalsActivity.this);
             for (int y = 0 ; y < socot ; y++){
-                ImageView imageView = new ImageView(AnimalsActivity.this);
+                final ImageView imageView = new ImageView(AnimalsActivity.this);
                 TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(355,350);
                 imageView.setLayoutParams(layoutParams);
-                final int valueHinhChon = getResources().getIdentifier(
+                valueHinhChon = getResources().getIdentifier(
                         arrayNamesAnimal[index++],
                         "drawable",
                         getPackageName());
                 imageView.setImageResource(valueHinhChon);
+                imageView.setTag(valueHinhChon);
                 imageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Toast.makeText(AnimalsActivity.this, valueHinhChon + "", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AnimalsActivity.this, imageView.getTag().toString() + "", Toast.LENGTH_SHORT).show();
                     }
                 });
                 tableRow.addView(imageView);

@@ -22,11 +22,12 @@ public class AnimalsActivity extends AppCompatActivity {
     private void drawTableImage() {
         int socot = 3;
         int sodong = 6;
-
         for (int i = 0 ; i < sodong ; i++){
             TableRow tableRow = new TableRow(AnimalsActivity.this);
             for (int y = 0 ; y < socot ; y++){
                 ImageView imageView = new ImageView(AnimalsActivity.this);
+                TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(355,350);
+                imageView.setLayoutParams(layoutParams);
                 imageView.setImageResource(R.drawable.bo);
                 tableRow.addView(imageView);
             }

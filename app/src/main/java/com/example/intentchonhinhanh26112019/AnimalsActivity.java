@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.Toast;
 
 public class AnimalsActivity extends AppCompatActivity {
 
@@ -36,11 +38,17 @@ public class AnimalsActivity extends AppCompatActivity {
                 ImageView imageView = new ImageView(AnimalsActivity.this);
                 TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(355,350);
                 imageView.setLayoutParams(layoutParams);
-                int valueHinhChon = getResources().getIdentifier(
+                final int valueHinhChon = getResources().getIdentifier(
                         arrayNamesAnimal[index++],
                         "drawable",
                         getPackageName());
                 imageView.setImageResource(valueHinhChon);
+                imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(AnimalsActivity.this, valueHinhChon + "", Toast.LENGTH_SHORT).show();
+                    }
+                });
                 tableRow.addView(imageView);
             }
             mTableLayout.addView(tableRow);

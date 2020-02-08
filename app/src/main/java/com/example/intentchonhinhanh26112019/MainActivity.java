@@ -1,5 +1,6 @@
 package com.example.intentchonhinhanh26112019;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -55,5 +56,14 @@ public class MainActivity extends AppCompatActivity {
                 "drawable",
                 getPackageName());
         mImgHinhGoc.setImageResource(mValueHinhGoc);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == 123 && resultCode == RESULT_OK && data != null){
+            int idHinhChon = data.getIntExtra("idhinh",0);
+            mImgHinhChon.setImageResource(idHinhChon);
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

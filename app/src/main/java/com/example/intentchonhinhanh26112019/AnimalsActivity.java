@@ -3,6 +3,7 @@ package com.example.intentchonhinhanh26112019;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +11,10 @@ import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.Toast;
+
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 
 public class AnimalsActivity extends AppCompatActivity {
 
@@ -26,6 +31,7 @@ public class AnimalsActivity extends AppCompatActivity {
 
     private void init() {
         arrayNamesAnimal = getResources().getStringArray(R.array.arrayNamesAnimal);
+        Collections.shuffle(Arrays.asList(arrayNamesAnimal));
     }
 
     private void drawTableImage() {
@@ -48,7 +54,10 @@ public class AnimalsActivity extends AppCompatActivity {
                 imageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Toast.makeText(AnimalsActivity.this, imageView.getTag().toString() + "", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent();
+                        intent.putExtra("idhinh",Integer.parseInt(imageView.getTag().toString()));
+                        setResult(RESULT_OK , intent);
+                        finish();
                     }
                 });
                 tableRow.addView(imageView);

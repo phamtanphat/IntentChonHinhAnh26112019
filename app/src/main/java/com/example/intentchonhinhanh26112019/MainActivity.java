@@ -5,10 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Random;
 
@@ -16,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     ImageView mImgHinhGoc,mImgHinhChon;
     TextView mTvDiemSo;
+    LinearLayout mLayoutLoading;
     String[] arrayNamesAnimal;
     int mIndexHinhGoc = -1;
     int mValueHinhGoc = -1;
@@ -48,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         mImgHinhChon = findViewById(R.id.imageviewHinhchon);
         mImgHinhGoc = findViewById(R.id.imageviewHinhgoc);
         mTvDiemSo = findViewById(R.id.textviewdiem);
+        mLayoutLoading = findViewById(R.id.linearLoading);
     }
     private void mapImageRandom() {
         mIndexHinhGoc = new Random().nextInt(arrayNamesAnimal.length);
@@ -63,7 +68,36 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == 123 && resultCode == RESULT_OK && data != null){
             int idHinhChon = data.getIntExtra("idhinh",0);
             mImgHinhChon.setImageResource(idHinhChon);
+
+            if (idHinhChon == mValueHinhGoc){
+                Toast.makeText(this, "Chọn chính xác!!", Toast.LENGTH_SHORT).show();
+                isLoading(true);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mapImageRandom();
+                        mImgHinhChon.setImageResource(R.drawable.nophoto);
+                        isLoading(false);
+                    }
+                },2000);
+
+            }else{
+                Toast.makeText(this, "Sai rồi!!", Toast.LENGTH_SHORT).show();
+            }
+        }
+        if (resultCode == RESULT_CANCELED){
+            Toast.makeText(this, "Bạn chưa chọn con nào cả!!", Toast.LENGTH_SHORT).show();
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
+    private void isLoading(Boolean isload){
+        if (isload) {
+            mLayoutLoading.setVisibility(View.VISIBLE);
+            mImgHinhChon.setEnabled(false);
+        }else{
+            mLayoutLoading.setVisibility(View.GONE);
+            mImgHinhChon.setEnabled(true);
+        }
+    }
+
 }
